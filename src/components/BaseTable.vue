@@ -1,13 +1,30 @@
 <script setup>
+import { computed } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore()
+
+const profileInResults = computed(() => {
+    const activeProfile = store.state.activeProfile
+    const searchTokens = store.state.searchTokens
+    
+    if (!activeProfile) return false
+    
+    const profileFound = searchTokens.includes(activeProfile.username) || searchTokens.includes(String(activeProfile.id))
+
+    if (profileFound) {
+        return true
+    } else {
+        store.dispatch('removeActiveProfile')
+        return false
+    }
+})
 </script>
 
 <template>
     <div class="table">
         <Transition name="fade">
-            <div v-if="!store.state.activeProfile" class="table-placeholder">
+            <div v-if="!profileInResults" class="table-placeholder">
                 Выберите сотрудника, чтобы посмотреть его профиль
             </div>
             <div v-else class="table-profile">
