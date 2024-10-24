@@ -66,6 +66,9 @@ const store = createStore({
         },
         setSearchTokens(state, tokens) {
             state.searchTokens = tokens
+        },
+        removeActiveProfile(state) {
+            state.activeProfile = null
         }
     },
     actions: {
@@ -74,6 +77,9 @@ const store = createStore({
         },
         setSearchTokens(state, tokens) {
             this.commit('setSearchTokens', tokens)
+        },
+        removeActiveProfile(state) {
+            this.commit('removeActiveProfile')
         }
     }
 })

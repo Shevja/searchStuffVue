@@ -6,11 +6,15 @@ import { useStore } from 'vuex';
 const store = useStore()
 
 const searchResult = computed(() => {
-    // console.log(store.state.searchTokens, 'search results')
     const userList = store.state.userList
-    const searchTokens = [...store.state.searchTokens]
+    const searchTokens = store.state.searchTokens.map(token => token.toLowerCase())
 
-    return userList.filter(user => searchTokens.includes(user.username) || searchTokens.includes(String(user.id)))
+    return userList.filter(user => {
+        const userName = user.username.toLowerCase()
+        const userId = String(user.id)
+
+        return searchTokens.includes(userName) || searchTokens.includes(userId)
+    })
 })
 </script>
 
@@ -19,8 +23,11 @@ const searchResult = computed(() => {
         <div class="stuff__title">
             Результаты
         </div>
-        <span v-if="!store.state.userList" class="stuff__placeholder">
+        <span v-if="!store.state.searchTokens.length" class="stuff__placeholder">
             начните поиск
+        </span>
+        <span v-else-if="!searchResult.length" class="stuff__placeholder">
+            ничего не найдено
         </span>
         <ul v-else class="stuff__list">
             <li v-for="user in searchResult" :key="user.id">

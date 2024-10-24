@@ -52,13 +52,11 @@ function setActiveProfile() {
     border-radius: 10px;
     overflow: hidden;
     display: flex;
+    transition: background .2s ease;
 
     &:hover {
         cursor: pointer;
-
-        .card-info {
-            background: #e0e0e0;
-        }
+        background: #e0e0e0;
     }
 
     &__img {
@@ -71,13 +69,13 @@ function setActiveProfile() {
     }
 
     &-info {
-        padding: 15px;
+        overflow: hidden;
+        margin: 15px;
         display: flex;
         flex-direction: column;
         gap: 5px;
         flex: 1;
         width: 100%;
-        transition: background .2s ease;
 
         &__name {
             font-weight: 600;
@@ -88,6 +86,9 @@ function setActiveProfile() {
         &__contact {
             font-size: 14px;
             color: #76787d;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
     }
 }
