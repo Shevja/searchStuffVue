@@ -1,5 +1,5 @@
 {
-  "name": "searchstuffvue",
+  "name": "vite-project",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,11 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "sass": "^1.77.6",
-    "vue": "^3.4.29"
+    "vue": "^3.5.10",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.0.5",
-    "vite": "^5.3.1"
+    "@vitejs/plugin-vue": "^5.1.4",
+    "sass": "^1.80.3",
+    "vite": "^5.4.8"
   }
 }
