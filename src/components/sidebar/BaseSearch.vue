@@ -1,10 +1,13 @@
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore()
 const searchValue = ref(null)
 const searchTokens = ref(null)
+
+const fetchTimeoutId = ref(null)
+const fetchDebounce = 1000
 
 const getTokens = computed(() => {
     let tokens = searchValue.value.split(',')
@@ -14,6 +17,19 @@ const getTokens = computed(() => {
     searchTokens.value = tokens.join(', ')
 
     store.dispatch('setSearchTokens', tokens)
+
+    if (tokens.length) {
+        store.dispatch('removeUserList')
+        
+        if (fetchTimeoutId.value) {
+            clearTimeout(fetchTimeoutId.value)
+        }
+        
+        fetchTimeoutId.value = setTimeout(() => {
+            console.log('find')
+            store.dispatch('getUserList')
+        }, fetchDebounce)
+    }
 })
 
 const formatValue = computed(() => {

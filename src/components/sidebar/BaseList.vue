@@ -5,17 +5,9 @@ import { useStore } from 'vuex';
 
 const store = useStore()
 
-const searchResult = computed(() => {
-    const userList = store.state.userList
-    const searchTokens = store.state.searchTokens.map(token => token.toLowerCase())
+const userList = computed(() => store.state.userList)
+const searchTokens = computed(() => store.state.searchTokens)
 
-    return userList.filter(user => {
-        const userName = user.username.toLowerCase()
-        const userId = String(user.id)
-
-        return searchTokens.includes(userName) || searchTokens.includes(userId)
-    })
-})
 </script>
 
 <template>
@@ -23,15 +15,17 @@ const searchResult = computed(() => {
         <div class="stuff__title">
             Результаты
         </div>
-        <span v-if="!store.state.searchTokens.length" class="stuff__placeholder">
+        <span v-if="!searchTokens.length" class="stuff__placeholder">
             начните поиск
         </span>
-        <span v-else-if="!searchResult.length" class="stuff__placeholder">
+        <span v-else-if="!userList" class="stuff__placeholder stuff__placeholder_loading">
+        </span>
+        <span v-else-if="!userList.length" class="stuff__placeholder">
             ничего не найдено
         </span>
         <ul v-else class="stuff__list">
-            <li v-for="user in searchResult" :key="user.id">
-                <BaseListCard :id="user.id" :name="user.name" :email="user.email" />
+            <li v-for="user in userList" :key="user.id">
+                <BaseListCard :id="user.id" :name="user.username" :email="user.email" />
             </li>
         </ul>
     </div>
@@ -39,6 +33,11 @@ const searchResult = computed(() => {
 
 <style lang="scss" scoped>
 .stuff {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    flex: 1;
+
     &__title {
         font-weight: 600;
         font-size: 16px;
@@ -50,12 +49,38 @@ const searchResult = computed(() => {
     &__placeholder {
         font-size: 14px;
         color: #76787d;
+
+        &_loading {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: 20%;
+                width: 2.5rem;
+                height: 2.5rem;
+                border-radius: 100%;
+                border: 4px solid #adadad;
+                border-bottom-color: transparent;
+                animation: spin .6s linear infinite;
+            }
+        }
     }
 
     &__list {
         display: flex;
         flex-direction: column;
         gap: 20px;
+    }
+}
+
+@keyframes spin {
+    100% {
+        rotate: 360deg;
     }
 }
 </style>
