@@ -48,10 +48,6 @@ const store = useStore()
                 </div>
             </div>
         </Transition>
-        <div>
-            <div>test</div>
-            <div>test</div>
-        </div>
     </div>
 </template>
 

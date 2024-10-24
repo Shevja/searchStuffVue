@@ -1,6 +1,8 @@
 <script setup>
 import { computed, ref } from 'vue';
+import { useStore } from 'vuex';
 
+const store = useStore()
 const searchValue = ref(null)
 const searchTokens = ref(null)
 
@@ -9,9 +11,9 @@ const getTokens = computed(() => {
 
     tokens = tokens.map(token => token.trim().replaceAll(/\s+/g, ' '))
     tokens = tokens.filter(token => token !== '')
-
     searchTokens.value = tokens.join(', ')
-    console.log(tokens)
+
+    store.dispatch('setSearchTokens', tokens)
 })
 
 const formatValue = computed(() => {

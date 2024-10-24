@@ -5,6 +5,7 @@ const store = createStore({
         return {
             activeProfile: null,
             // userList: null,
+            searchTokens: [],
             userList: [
                 {
                     id: 1,
@@ -38,6 +39,22 @@ const store = createStore({
                     phone: '493-170-9623 x156',
                     bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
                 },
+                {
+                    id: 5,
+                    name: "Patricia Lebsack",
+                    username: "Kariana",
+                    email: 'Julianne.OConner@kory.org',
+                    phone: '493-170-9623 x156',
+                    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+                },
+                {
+                    id: 6,
+                    name: "Patricia Lebsack",
+                    username: "Kariand",
+                    email: 'Julianne.OConner@kory.org',
+                    phone: '493-170-9623 x156',
+                    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+                },
             ]
         }
     },
@@ -46,11 +63,17 @@ const store = createStore({
             const user = state.userList.find(user => user.id === userId)
 
             state.activeProfile = user
+        },
+        setSearchTokens(state, tokens) {
+            state.searchTokens = tokens
         }
     },
     actions: {
         setActiveProfile(state, userId) {
             this.commit('setActiveProfile', userId)
+        },
+        setSearchTokens(state, tokens) {
+            this.commit('setSearchTokens', tokens)
         }
     }
 })

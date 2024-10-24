@@ -18,5 +18,6 @@ import BaseList from './BaseList.vue'
     padding: 25px;
     background: #fdfdfd;
     max-width: 290px;
+    width: 100%;
 }
 </style>

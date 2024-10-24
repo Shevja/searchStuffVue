@@ -1,8 +1,17 @@
 <script setup>
+import { computed } from 'vue';
 import BaseListCard from './BaseListCard.vue'
 import { useStore } from 'vuex';
 
 const store = useStore()
+
+const searchResult = computed(() => {
+    // console.log(store.state.searchTokens, 'search results')
+    const userList = store.state.userList
+    const searchTokens = [...store.state.searchTokens]
+
+    return userList.filter(user => searchTokens.includes(user.username) || searchTokens.includes(String(user.id)))
+})
 </script>
 
 <template>
@@ -14,7 +23,7 @@ const store = useStore()
             начните поиск
         </span>
         <ul v-else class="stuff__list">
-            <li v-for="user in store.state.userList" :key="user.id">
+            <li v-for="user in searchResult" :key="user.id">
                 <BaseListCard :id="user.id" :name="user.name" :email="user.email" />
             </li>
         </ul>
