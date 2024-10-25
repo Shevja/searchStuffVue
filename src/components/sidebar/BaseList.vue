@@ -6,6 +6,7 @@ import { useStore } from 'vuex';
 const store = useStore()
 
 const userList = computed(() => store.state.userList)
+const fetchError = computed(() => store.state.fetchError)
 const searchTokens = computed(() => store.state.searchTokens)
 
 </script>
@@ -15,14 +16,35 @@ const searchTokens = computed(() => store.state.searchTokens)
         <div class="stuff__title">
             Результаты
         </div>
+
         <span v-if="!searchTokens.length" class="stuff__placeholder">
             начните поиск
         </span>
-        <span v-else-if="!userList" class="stuff__placeholder stuff__placeholder_loading">
-        </span>
+
+        <span v-else-if="!userList && !fetchError" class="stuff__placeholder stuff__placeholder_loading"></span>
+
+        <div v-else-if="fetchError" class="stuff__placeholder">
+            
+            <!-- Ошибка {{ fetchError }} -->
+            <span v-if="fetchError === 404">
+                Ресурс не найден - {{ fetchError }}
+            </span>
+            <span v-else-if="fetchError === 600">
+                Ошибка сети, либо запрашиваемый ресурс не существует - {{ fetchError }}
+            </span>
+            <span v-else-if="fetchError === 700">
+                Полученные данные имеют неправильный формат - {{ fetchError }}
+            </span>
+            <span v-else-if="fetchError === 701">
+                Произошла неизведанная доселе ошибка приложения - {{ fetchError }}
+            </span>
+
+        </div>
+
         <span v-else-if="!userList.length" class="stuff__placeholder">
             ничего не найдено
         </span>
+
         <ul v-else class="stuff__list">
             <li v-for="user in userList" :key="user.id">
                 <BaseListCard :id="user.id" :name="user.username" :email="user.email" />

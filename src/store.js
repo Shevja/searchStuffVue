@@ -5,7 +5,7 @@ const store = createStore({
     state() {
         return {
             activeProfile: null,
-            // userList: null,
+            fetchError: null,
             searchTokens: [],
             userList: null
         }
@@ -23,6 +23,9 @@ const store = createStore({
         },
         setUserList(state, userList) {
             state.userList = userList
+        },
+        setFetchError(state, errorCode) {
+            state.fetchError = errorCode
         }
     },
     actions: {
@@ -39,8 +42,13 @@ const store = createStore({
             this.commit('setUserList', null)
         },
         async getUserList(store) {
-            const userList = await useGetUsers(this.state.searchTokens)
-            this.commit('setUserList', userList)
+            const [userList, errorCode] = await useGetUsers(this.state.searchTokens)
+
+            if (errorCode) {
+                this.commit('setFetchError', errorCode)
+            } else {
+                this.commit('setUserList', userList)
+            }
         }
     }
 })
