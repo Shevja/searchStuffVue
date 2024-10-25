@@ -6,8 +6,9 @@ const store = createStore({
         return {
             activeProfile: null,
             fetchError: null,
+            searchStatus: 'waiting',
             searchTokens: [],
-            userList: null
+            userList: null,
         }
     },
     mutations: {
@@ -26,6 +27,9 @@ const store = createStore({
         },
         setFetchError(state, errorCode) {
             state.fetchError = errorCode
+        },
+        setSearchStatus(state, status) {
+            state.searchStatus = status
         }
     },
     actions: {
@@ -33,15 +37,22 @@ const store = createStore({
             this.commit('setActiveProfile', userId)
         },
         setSearchTokens(store, tokens) {
+            if (!tokens.length) {
+                this.commit('setSearchStatus', 'waiting')
+            }
+
             this.commit('setSearchTokens', tokens)
         },
         removeActiveProfile(store) {
             this.commit('removeActiveProfile')
         },
         removeUserList() {
+            this.commit('setSearchStatus', 'waiting')
             this.commit('setUserList', null)
         },
         async getUserList(store) {
+            this.commit('setSearchStatus', 'searching')
+
             const [userList, errorCode] = await useGetUsers(this.state.searchTokens)
 
             if (errorCode) {
@@ -49,6 +60,8 @@ const store = createStore({
             } else {
                 this.commit('setUserList', userList)
             }
+
+            this.commit('setSearchStatus', 'finished')
         }
     }
 })

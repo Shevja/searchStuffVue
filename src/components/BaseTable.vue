@@ -7,7 +7,7 @@ const store = useStore()
 const profileInResults = computed(() => {
     const activeProfile = store.state.activeProfile
     const searchTokens = store.state.searchTokens
-    
+
     if (!activeProfile) return false
     
     const profileFound = searchTokens.includes(activeProfile.username) || searchTokens.includes(String(activeProfile.id))
@@ -32,6 +32,10 @@ const profileInResults = computed(() => {
                     <img src="/placeholder.jpg" alt="">
                 </div>
                 <div class="table-profile__info">
+                    <span style="font-weight: bolder; color: red;">
+                        {{ store.state.activeProfile.id }}
+                        {{ store.state.activeProfile.username }}
+                    </span>
                     <div class="profile__name">
                         {{ store.state.activeProfile.name }}
                     </div>

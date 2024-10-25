@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore()
@@ -26,7 +26,6 @@ const getTokens = computed(() => {
         }
         
         fetchTimeoutId.value = setTimeout(() => {
-            console.log('find')
             store.dispatch('getUserList')
         }, fetchDebounce)
     }
