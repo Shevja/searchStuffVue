@@ -9,7 +9,7 @@ const profileInResults = computed(() => {
     const searchTokens = store.state.searchTokens
 
     if (!activeProfile) return false
-    
+
     const profileFound = searchTokens.includes(activeProfile.username) || searchTokens.includes(String(activeProfile.id))
 
     if (profileFound) {
@@ -98,27 +98,34 @@ const profileInResults = computed(() => {
         height: 100%;
         font-size: 14px;
         color: #76787d;
-        padding-top: 250px;
+        padding: 250px 20px 20px;
         text-align: center;
     }
 
     &-profile {
         display: flex;
-        align-items: start;
-        gap: 60px;
+        flex-wrap: wrap;
+        row-gap: 30px;
+        column-gap: 60px;
         padding: 30px 20px;
 
         &__img {
-            width: 50%;
+            height: fit-content;
+            min-width: 300px;
+            width: 100%;
             flex: 1;
 
             img {
+                height: auto;
+                max-height: 285px;
                 object-fit: contain;
+                object-position: left;
             }
         }
 
         &__info {
-            width: 50%;
+            min-width: 50%;
+            width: 100%;
             flex: 1;
         }
     }

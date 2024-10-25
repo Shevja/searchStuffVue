@@ -1,6 +1,7 @@
 <script setup>
 import BaseSearch from './BaseSearch.vue'
-import BaseList from './BaseList.vue'
+import BaseList from './BaseList/BaseList.vue';
+BaseList
 </script>
 
 <template>

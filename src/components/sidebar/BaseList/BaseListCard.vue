@@ -52,6 +52,7 @@ function setActiveProfile() {
     border-radius: 10px;
     overflow: hidden;
     display: flex;
+    max-height: 70px;
     transition: background .2s ease;
 
     &:hover {
