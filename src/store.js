@@ -63,6 +63,23 @@ const store = createStore({
 
             this.commit('setSearchStatus', 'finished')
         }
+    },
+    getters: {
+        getUserList(state) {
+            return state.userList
+        },
+        getFetchError(state) {
+            return state.fetchError
+        },
+        getSearchStatus(state) {
+            return state.searchStatus
+        },
+        getActiveProfile(state) {
+            return state.activeProfile
+        },
+        getSearchTokens(state) {
+            return state.searchTokens
+        }
     }
 })
 

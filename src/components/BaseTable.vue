@@ -5,8 +5,8 @@ import { useStore } from 'vuex';
 const store = useStore()
 
 const profileInResults = computed(() => {
-    const activeProfile = store.state.activeProfile
-    const searchTokens = store.state.searchTokens
+    const activeProfile = store.getters.getActiveProfile
+    const searchTokens = store.getters.getSearchTokens
 
     if (!activeProfile) return false
 
@@ -33,7 +33,7 @@ const profileInResults = computed(() => {
                 </div>
                 <div class="table-profile__info">
                     <div class="profile__name">
-                        {{ store.state.activeProfile.name }}
+                        {{ store.getters.getActiveProfile.name }}
                     </div>
 
                     <div class="profile__contact">
@@ -41,7 +41,7 @@ const profileInResults = computed(() => {
                             email:
                         </span>
                         <a href="mailto:Shanna@melissa.tv">
-                            {{ store.state.activeProfile.email }}
+                            {{ store.getters.getActiveProfile.email }}
                         </a>
                     </div>
 
@@ -50,7 +50,7 @@ const profileInResults = computed(() => {
                             phone:
                         </span>
                         <a href="tel:0106926593x09125">
-                            {{ store.state.activeProfile.phone }}
+                            {{ store.getters.getActiveProfile.phone }}
                         </a>
                     </div>
 

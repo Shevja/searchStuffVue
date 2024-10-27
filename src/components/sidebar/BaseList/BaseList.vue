@@ -6,9 +6,9 @@ import { useStore } from 'vuex';
 
 const store = useStore()
 
-const userList = computed(() => store.state.userList)
-const fetchError = computed(() => store.state.fetchError)
-const searchStatus = computed(() => store.state.searchStatus)
+const userList = computed(() => store.getters.getUserList)
+const fetchError = computed(() => store.getters.getFetchError)
+const searchStatus = computed(() => store.getters.getSearchStatus)
 
 const loadingTextIntervalId = ref(null)
 const loadingTextIntervalDelay = 5000
@@ -18,7 +18,7 @@ const loadingTextList = [
     'Загрузка...',
     'Загрузка занимает чуть больше времени чем обычно...',
     'Еще чуть-чуть загрузка......',
-    '"Ну на моем компьютере все работало..." - Разрабочик',
+    '"Ну на моем компьютере все работало..." - Разработчик',
     'Все ещё загрузка...'
 ]
 
